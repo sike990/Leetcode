@@ -7,7 +7,7 @@ public:
         vector<vector<int>> cnt(nums.size() + 1);
         for(int i = 0 ; i < nums.size() ; i++)mp[nums[i]]++;
 
-        for(auto x : mp)cnt[x.second].push_back(x.first);
+        for(auto &x : mp)cnt[x.second].push_back(x.first);
 
         for(int i = nums.size() ; i > 0 ; i--){
             for(auto x : cnt[i]){
