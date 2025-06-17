@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    map<int , vector<int>> mp;
-    void solve(TreeNode* root , int lvl){
+    void solve(TreeNode * root , vector<vector<int>> &ans , int lvl){
 
         if(root == nullptr)return;
+        if(ans.size() <= lvl)ans.resize(lvl+1);
+        ans[lvl].push_back(root -> val);
 
-        mp[lvl].push_back(root->val);
-
-        solve(root -> left , lvl + 1);
-        solve(root -> right , lvl + 1);
+        solve(root -> left , ans , lvl + 1);
+        solve(root -> right , ans , lvl + 1);
     }
     vector<vector<int>> levelOrder(TreeNode* root) {
-        mp.clear();
         vector<vector<int>> ans;
-        solve(root , 0);
-        for(auto i : mp)ans.push_back(i.second);
+        solve(root , ans , 0);
         return ans;
     }
 };
