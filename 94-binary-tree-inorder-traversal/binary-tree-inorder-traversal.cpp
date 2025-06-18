@@ -11,43 +11,25 @@
  */
 class Solution {
 public:
-    // void inorder(TreeNode* root , vector<int> & ans ){
-
-    //     if(!root)return;
-
-    //     inorder(root -> left , ans);
-    //     ans.push_back(root -> val);
-    //     inorder(root -> right , ans);
-    // }
+//using iterative approach
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        //inorder(root , ans);
-        set<TreeNode*> mp;
-
         stack<TreeNode*> st;
-        if(root != nullptr)
-        st.push(root);
-        while(!st.empty()){
+        vector<int> ans;
 
-            TreeNode* topel = st.top();
-            //case to push in stack
-            if(topel -> left != nullptr && mp.find(topel -> left) == mp.end()){
-                st.push(topel->left);
-            }
-            else{
-                //if left is nullptr
-              //  if(topel -> left == nullptr){
-                    st.pop();
-                    ans.push_back(topel -> val);
-                    mp.insert(topel);
-                    if(topel -> right != nullptr)st.push(topel -> right);
-              //  }
-
+        while(root != nullptr || !st.empty()){
+            
+            while(root != nullptr){
+                st.push(root);
+                root = root -> left;
             }
 
-        } 
+            root = st.top();
+            st.pop();
+            ans.push_back(root -> val);
+            root = root -> right;
+            
+        }
+        return ans; 
 
-        
-        return ans;
     }
 };
