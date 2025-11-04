@@ -5,20 +5,17 @@ public:
         for(int i : nums)count[i]++;
         int n = nums.size();
         vector<int> ans;
-        vector<vector<int>> bucket(n+1);
-        for(auto i : count){
-            bucket[i.second].push_back(i.first);
-        }
-        for(int i = n ;  i >= 0 ; i--){
-        
-            if(ans.size() >= k)break;
 
-            for(auto x : bucket[i]){
-                ans.push_back(x);
-            }
-            
-        
-    }
+        priority_queue<pair<int,int>> pq;
+        for(auto i : count){
+            pq.emplace(i.second , i.first);
+        }
+
+        while(k-- &&  !pq.empty()){
+                auto front = pq.top();
+                ans.push_back(front.second);
+                pq.pop();
+        }
     return ans;
     }
 };
