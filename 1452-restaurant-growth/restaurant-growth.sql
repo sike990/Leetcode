@@ -8,7 +8,7 @@
 -- having count(c1.customer_id) >= 7
 -- order by c1.visited_on asc
 
-select visited_on,
+select distinct visited_on,
 (
     select sum(amount)
     from Customer
@@ -24,7 +24,6 @@ where c.visited_on >= (
     select DATE_ADD(min(visited_on),INTERVAL 6 DAY)
     from Customer
 )
-group by c.visited_on
 order by c.visited_on
 
 
