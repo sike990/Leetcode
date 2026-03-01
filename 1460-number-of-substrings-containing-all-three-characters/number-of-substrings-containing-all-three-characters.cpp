@@ -1,28 +1,20 @@
 class Solution {
 public:
-    int numberOfSubstrings(string str) {
-        unordered_map<char,int> mp;
-        int s = 0 , e = 0;
-        int n = str.length();
-        int count = 0;
+    int numberOfSubstrings(string s) {
+        int n = s.length();
+        vector<int> track(3,-1);
+        int e = 0;
         int ans = 0;
-        while(s <= e){
-            while(e < n && count < 3){
-                if(mp[str[e]] == 0)
-                count++;
-                mp[str[e]]++;
-                e++;
-                //if(e >= n)break;
+        while(e < n){
+            int ind = s[e] - 'a';
+            track[ind] = e;
+            e++;
+            int minind = *min_element(track.begin(),track.end());
+            if(minind != -1){
+                ans += minind+1;
             }
-            if(e >= n && count != 3)break;
-            //int len = e-s;
-            int remlen = n-e;
-            ans += remlen+1;
-            //cout << e << endl;
-            mp[str[s]]--;
-            if(mp[str[s]] < 1)count--;
-            s++;
         }
+        //logic we are adding the number of valid substring that can be formed upto current index having the value of the last minimum point including and before which all substring will be counted;
         return ans;
     }
 };
